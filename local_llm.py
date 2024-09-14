@@ -3,13 +3,13 @@ from transformers import GPT2LMHeadModel, GPT2Tokenizer
 import json
 import os
 
-# Check if GPU is available and use it
-device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+# Set device to CPU
+device = torch.device("cpu")
 print(f"Using device: {device}")
 
 # Load pre-trained model and tokenizer (GPT-2 in this case)
 model_name = "gpt2"
-model = GPT2LMHeadModel.from_pretrained(model_name).to(device)  # Move model to GPU if available
+model = GPT2LMHeadModel.from_pretrained(model_name).to(device)  # Model will run on CPU
 tokenizer = GPT2Tokenizer.from_pretrained(model_name)
 
 # Set the pad_token to eos_token
@@ -39,13 +39,10 @@ else:
 
 # Function to interact with LLM on each chunk
 def interact_with_llm(prompt, model, tokenizer, max_new_tokens=150):
-    # Tokenize on CPU (this can be done faster on CPU)
-    inputs = tokenizer(prompt, return_tensors="pt", padding=True, truncation=True)
+    # Tokenize the inputs
+    inputs = tokenizer(prompt, return_tensors="pt", padding=True, truncation=True).to(device)
     
-    # Move tokenized inputs to GPU for inference
-    inputs = {key: value.to(device) for key, value in inputs.items()}
-    
-    # Generate outputs on the GPU
+    # Generate outputs on the CPU
     outputs = model.generate(
         inputs['input_ids'], 
         attention_mask=inputs['attention_mask'], 
@@ -82,28 +79,44 @@ for i, chunk in enumerate(text_chunks):
 
 print("All chunks processed and stored.")
 
-# Now you have the summaries stored, and you can reload them whenever needed.
-import json
+# -------- New Function for Asking Questions -------- #
+def generate_answer(question, summary, model, tokenizer):
+    # Formulate the prompt with the question and relevant summary
+    prompt = f"Question: {question}\nSummary: {summary}\nAnswer:"
+    
+    # Generate the answer using the LLM
+    answer = interact_with_llm(prompt, model, tokenizer)
+    
+    return answer
 
-# Load summaries from the file
-def load_summaries(file_path):
-    with open(file_path, "r") as f:
-        return json.load(f)
-
-summaries = load_summaries("julius_caesar_summaries.json")
-
-# Example: Ask a question based on the summaries
-def ask_question(question, summaries):
+def ask_question_with_answer(question, summaries, model, tokenizer):
     print(f"Question: {question}")
     
-    # You can adjust this to look for specific parts of the play.
+    # Extract keywords from the question to filter relevant summaries
+    keywords = question.lower().split()
+    
+    # Initialize a list to hold relevant summaries
+    relevant_summaries = []
+    
+    # Check each summary for relevance by matching keywords
     for chunk_id, data in summaries.items():
-        # Use the summary to generate a response or search in it
         summary = data['summary']
-        print(f"{chunk_id} Summary:\n{summary}\n")
         
-    # For a specific response, you could analyze or process the summaries further
-    # For now, this prints out all stored summaries as a simple response.
+        # If any keyword is found in the summary, mark it as relevant
+        if any(keyword in summary.lower() for keyword in keywords):
+            print(f"\nRelevant chunk found in {chunk_id}:")
+            relevant_summaries.append(summary)
+    
+    # If relevant summaries are found, ask the model to generate an answer
+    if relevant_summaries:
+        for summary in relevant_summaries:
+            answer = generate_answer(question, summary, model, tokenizer)
+            print(f"Answer: {answer}\n")
+            return answer  # Return the first relevant answer found
+    else:
+        print("No relevant information found in the summaries.")
 
-# Ask a question (example)
-ask_question_with_answer("What happened in Act 1?", summaries)
+
+# ------- Interacting with the User ------- #
+# After processing, you can now ask questions based on summaries
+ask_question_with_answer("What is Cinna's profession?", summaries, model, tokenizer)
