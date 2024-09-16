@@ -1,10 +1,7 @@
-So First of all i made the code <\br>
-Trained it on colab got the .pth files failed<\br> 
-agian repeat failed <\br>
-so after making 6 google account limit to 0(so like 3*6=18hr of Traning(one colab acc 3 hr of time)) I finaly succeded so then downloaded the files like gpt_epoch_2<\br>
-So after doing put it into hugging face then boom it worked but in hugging face also i had to try like 2 times<\br>
-So it seems easy but it isnt <\br>
-yay thats it also it was fun and learned a lot <\br>
-It was my orginal repo for the llm but after file name change and all i made one more repo here is the link : [Link](https://github.com/souptik-samanta/Caesar-Gpt)<\br>
-but now i have put all the files here also in the trained_model folder i couldnot add the .pth files as it was too big<\br>
-Yay thats all thank you  for reading this long!<\br>
+I initially created the code and trained it on Colab, but ran into multiple failures. After going through six Google accounts and 18 hours of training (since each account allowed me 3 hours of time), I finally succeeded. I downloaded the trained files like gpt_epoch_2.pth.
+
+After uploading everything to Hugging Face, it took a couple of tries, but it eventually worked. Although it seems straightforward, it was quite a challenge.
+
+In the end, it was a fun learning experience. My original repository for the LLM was modified after renaming some files, so I created a new one. You can check it out here: Link. I couldn't upload the .pth files to the trained_model folder since they were too large.
+
+Thanks for reading!
