@@ -2,6 +2,6 @@ I initially created the code and trained it on Colab, but ran into multiple fail
 
 After uploading everything to Hugging Face, it took a couple of tries, but it eventually worked. Although it seems straightforward, it was quite a challenge.
 
-In the end, it was a fun learning experience. My original repository for the LLM was modified after renaming some files, so I created a new one. You can check it out here: Link. I couldn't upload the .pth files to the trained_model folder since they were too large.
+In the end, it was a fun learning experience. My original repository for the LLM was modified after renaming some files, so I created a new one. You can check it out here: [Link](https://github.com/souptik-samanta/Caesar-Gpt). I couldn't upload the .pth files to the trained_model folder since they were too large.
 
 Thanks for reading!
