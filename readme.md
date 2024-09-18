@@ -9,6 +9,6 @@ In the end, it was a fun learning experience. My original repository for the LLM
 
 Thanks for reading!
 
-**read this also **
+**read this also**
 
 to use this use gogle colab also not a file for building the model it is a code to train and get the weights and vocab files
