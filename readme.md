@@ -1,4 +1,4 @@
-###LLM
+**LLM**
 
 
 I initially created the code and trained it on Colab, but ran into multiple failures. After going through six Google accounts and 18 hours of training (since each account allowed me 3 hours of time), I finally succeeded. I downloaded the trained files like gpt_epoch_2.pth.
@@ -9,6 +9,6 @@ In the end, it was a fun learning experience. My original repository for the LLM
 
 Thanks for reading!
 
-#read this also 
+**read this also **
 
 to use this use gogle colab also not a file for building the model it is a code to train and get the weights and vocab files
