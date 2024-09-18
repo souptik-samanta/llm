@@ -1,4 +1,4 @@
-#LLM
+==LLM==
 
 
 I initially created the code and trained it on Colab, but ran into multiple failures. After going through six Google accounts and 18 hours of training (since each account allowed me 3 hours of time), I finally succeeded. I downloaded the trained files like gpt_epoch_2.pth.
